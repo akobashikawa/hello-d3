@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello D3</title>
+</head>
+
+<body>
+    <h1>Hello D3</h1>
+
+    <div id="section-1">
+        <h2>circle</h2>
+        <div class="circle"></div>
+    </div>
+
+    <div id="section-2">
+        <h2>square / transform</h2>
+        <div class="square"></div>
+    </div>
+
+    <div id="section-3">
+        <h2>circle to square / transition</h2>
+        <div class="circle"></div>
+    </div>
+
+
+
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+        // section-1
+        (function () {
+
+            const svg = d3.select('#section-1 .circle')
+                .append('svg')
+                .style('background-color', 'cyan')
+                .attr('width', 200)
+                .attr('height', 200);
+
+            svg.append('circle')
+                .style('stroke', 'black')
+                .style('fill', 'yellow')
+                .attr('r', 40)
+                .attr('cx', 50)
+                .attr('cy', 50);
+
+        })();
+
+        // section-2
+        (function () {
+
+            const svg = d3.select('#section-2 .square')
+                .append('svg')
+                .style('background-color', 'cyan')
+                .attr('width', 200)
+                .attr('height', 200);
+
+            const g = svg.append('svg:g')
+                // .attr('transform', 'translate(100, 0)')
+                // .attr('transform', 'scale(2, 1)')
+                // .attr('transform', 'rotate(45, 75, 75)')
+                .attr('transform', 'translate(-30, 0), scale(2,1), rotate(45, 75, 75)')
+                ;
+
+            g.append('rect')
+                .style('stroke', 'black')
+                .style('fill', 'red')
+                .attr('x', 50)
+                .attr('y', 50)
+                .attr('width', 50)
+                .attr('height', 50);
+
+        })();
+
+        // section-3
+        (function () {
+
+            const svg = d3.select('#section-3 .circle')
+                .append('svg')
+                .style('background-color', 'cyan')
+                .attr('width', 200)
+                .attr('height', 200);
+
+            svg.append('circle')
+                .style('stroke', 'black')
+                .style('fill', 'yellow')
+                .attr('r', 40)
+                .attr('cx', 50)
+                .attr('cy', 50)
+                .transition()
+                .delay(100)
+                .duration(4000)
+                .attr('r', 10)
+                .attr('cx', 150)
+                .style('fill', 'black');
+
+        })();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello D3</title>
+</head>
+
+<body>
+    <h1>Hello D3</h1>
+
+    <div id="section-1">
+        <h2>select</h2>
+        <p>paragraph</p>
+    </div>
+
+    <div id="section-2">
+        <h2>selectAll</h2>
+        <p>paragraph</p>
+        <p>paragraph</p>
+        <p>paragraph</p>
+    </div>
+
+    <div id="section-3">
+        <h2>html</h2>
+        <ul>
+            <li>item</li>
+            <li>item</li>
+        </ul>
+    </div>
+
+    <div id="section-4">
+        <h2>append</h2>
+        <ul>
+            <li>item</li>
+            <li>item</li>
+        </ul>
+    </div>
+
+    <div id="section-5">
+        <h2>insert</h2>
+        <ul>
+            <li>item</li>
+            <li>item</li>
+        </ul>
+    </div>
+
+    <div id="section-6">
+        <h2>insert / nth-child pattern</h2>
+        <ul>
+            <li>item</li>
+            <li>item</li>
+        </ul>
+    </div>
+
+    <div id="section-7">
+        <h2>data / enter</h2>
+        <ul>
+            <li>item</li>
+            <li>item</li>
+        </ul>
+    </div>
+
+    <div id="section-8">
+        <h2>dynamic attributes</h2>
+        <p>paragraph</p>
+        <p>paragraph</p>
+        <p>paragraph</p>
+        <p>paragraph</p>
+        <p>paragraph</p>
+    </div>
+
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+        // section-1
+        d3.select('#section-1 p').text('Hello');
+
+        // section-2
+        d3.selectAll('#section-2 p').text('Hello');
+
+        // section-3
+        d3.select('#section-3 ul').html('<li>Hello</li>');
+
+        // section-4
+        d3.select('#section-4 ul').append('li').text('Hello');
+
+        // section-5
+        d3.select('#section-5 ul').insert('li', 'li').text('Hello');
+
+        // section-6
+        d3.select('#section-6 ul').insert('li', 'li:nth-child(2)').text('Hello');
+
+        // section-7
+        const data = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+        const sel = d3.select('#section-7 ul').selectAll('li').data(data);
+        sel.enter().append('li').text(d => d);
+        sel.text(d => d);
+
+        // section - 8
+        d3.selectAll('#section-8 p').style('color', () => {
+            const r = Math.round(Math.random() * 255);
+            const g = Math.round(Math.random() * 255);
+            const b = Math.round(Math.random() * 255);
+            return `rgb(${r}, ${g}, ${b})`;
+        });
+    </script>
+</body>
+
+</html>
