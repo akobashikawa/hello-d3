@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello D3</title>
+</head>
+
+<body>
+    <h1>Hello D3</h1>
+
+    <h2>Chart Line</h2>
+
+    <div id="section-1">
+    </div>
+
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+        // section-1
+        (function () {
+
+            const data = [100, 110, 140, 130, 80, 75, 120, 130, 100];
+
+            const scale = d3.scaleLinear()
+                .domain([0, 5])
+                .range([0, 255]);
+
+            console.log(scale(2.7));
+
+        })();
+
+
+    </script>
+</body>
+
+</html>
