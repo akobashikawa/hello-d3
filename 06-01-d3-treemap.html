@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hello D3</title>
+
+  <style>
+    body {
+      font: 10px sans-serif;
+    }
+
+    svg {
+      background-color: #def;
+    }
+
+    .link {
+      fill: none;
+      stroke: #555;
+    }
+
+    .border {
+      fill: none;
+      shape-rendering: crispEdges;
+      stroke: #aaa;
+    }
+
+    .node {
+      stroke: white;
+      fill: rgba(0,0,255,0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Hello D3</h1>
+
+  <h2>TreeMap</h2>
+
+  <div id="section-1">
+  </div>
+
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <script>
+    // section-1
+    (function () {
+
+      const width = 400;
+      const height = 300;
+
+      const data = {
+        "name": "A1",
+        "children": [{
+          "name": "B1",
+          "children": [{
+            "name": "C1",
+            "value": 100
+          },
+          {
+            "name": "C2",
+            "value": 300
+          },
+          {
+            "name": "C3",
+            "value": 200
+          }
+          ]
+        },
+        {
+          "name": "B2",
+          "value": 200
+        }
+        ]
+      };
+
+      const root = d3.hierarchy(data);
+
+      const layout = d3.treemap();
+      layout
+        .size([width, height])
+        .paddingOuter(10);
+      root.sum(d => d.value);
+      layout(root);
+      console.log(root);
+
+      const svg = d3.select('#section-1')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+      // add nodes
+      const gnodes = svg
+        .append('g')
+        .classed('nodes', true);
+
+      gnodes
+        .selectAll('.node')
+        .data(root.descendants())
+        .enter()
+        .append('rect')
+        .classed('node', true)
+        .attr('x', (d, i) => d.x0)
+        .attr('y', (d, i) => d.y0)
+        .attr('width', (d, i) => d.x1 - d.x0)
+        .attr('height', (d, i) => d.y1 - d.y0)
+        ;
+
+    })();
+  </script>
+</body>
+
+</html>
