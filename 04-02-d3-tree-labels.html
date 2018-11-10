@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hello D3</title>
+
+  <style>
+    body {
+      font: 10px sans-serif;
+    }
+
+    svg {
+      background-color: #def;
+    }
+
+    .link {
+      fill: none;
+      stroke: #555;
+    }
+
+    .border {
+      fill: none;
+      shape-rendering: crispEdges;
+      stroke: #aaa;
+    }
+
+    .node {
+      stroke: blue;
+      fill: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Hello D3</h1>
+
+  <h2>Tree with labels</h2>
+
+  <div id="section-1">
+  </div>
+
+
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <script>
+    // section-1
+    (function () {
+
+      const width = 400;
+      const height = 300;
+
+      const data = {
+        "name": "A1",
+        "children": [{
+          "name": "B1",
+          "children": [{
+            "name": "C1",
+            "value": 100
+          },
+          {
+            "name": "C2",
+            "value": 300
+          },
+          {
+            "name": "C3",
+            "value": 200
+          }
+          ]
+        },
+        {
+          "name": "B2",
+          "value": 200
+        }
+        ]
+      };
+
+      const root = d3.hierarchy(data);
+
+      const layout = d3.tree();
+      layout.size([width, height - 20]);
+      layout(root);
+      console.log(root);
+
+      const svg = d3.select('#section-1')
+        .append('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .append('g')
+        .attr('transform', 'translate(0, 10)');
+
+      // add nodes
+      const gnodes = svg
+        .append('g')
+        .classed('nodes', true);
+
+      gnodes
+        .selectAll('.node')
+        .data(root.descendants())
+        .enter()
+        .append('g')
+        .attr('transform', d => `translate(${d.x}, ${d.y})`)
+        .classed('node', true)
+        .append('circle')
+        .attr('cx', 0)
+        .attr('cy', 0)
+        .attr('r', 4);
+
+      gnodes
+        .selectAll('.node')
+        .append('text')
+        .attr('dx', 10)
+        .attr('dy', 3)
+        .text(d => d.data.name);
+
+      // add links
+      const glinks = svg
+        .append('g')
+        .classed('links', true);
+      
+      glinks
+        .selectAll('.link')
+        .data(root.links())
+        .enter()
+        .append('line')
+        .classed('link', true)
+        .attr('x1', (d, i) => d.source.x)
+        .attr('y1', (d, i) => d.source.y)
+        .attr('x2', (d, i) => d.target.x)
+        .attr('y2', (d, i) => d.target.y)
+        ;
+
+    })();
+  </script>
+</body>
+
+</html>
