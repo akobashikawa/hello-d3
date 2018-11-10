@@ -78,10 +78,6 @@
             const g = svg.append('svg:g')
                 .attr('transform', `translate(0, ${h})`);
 
-            const line = d3.line()
-                .x((d, i) => x(i))
-                .y((d, i) => -1 * y(d));
-
             // draw the x axis
             g.append("svg:line")
                 .attr("x1", x(0))
@@ -156,6 +152,10 @@
                 .attr("x2", x(0));
 
             // draw the line of data points
+            const line = d3.line()
+                .x((d, i) => x(i))
+                .y((d, i) => -1 * y(d));
+
             g.append("svg:path").attr("d", line(data));
 
         })();
